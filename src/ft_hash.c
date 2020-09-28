@@ -6,7 +6,7 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:25:30 by npimenof          #+#    #+#             */
-/*   Updated: 2020/09/28 14:31:53 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/09/28 14:59:22 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "ft_hash.h"
 #include <stdio.h>
 
+// init_hash_table initiates the t_hash type, which
+// represents our hash table
 t_hash	*init_hash_table(size_t type, size_t (*hash_func)())
 {
 	t_hash	*table;
@@ -29,6 +31,8 @@ t_hash	*init_hash_table(size_t type, size_t (*hash_func)())
 	return (table);
 }
 
+// ft_hash transforms a memory area to a hash, which
+// fits into the initiated hash table.
 size_t	ft_hash(void *ptr, size_t size)
 {
 	size_t			hash_value;
@@ -60,6 +64,9 @@ void	*ft_unique(t_list *l, void *ptr, size_t s)
 	return (NULL);
 }
 
+// ft_insert inserts an element to the hash table. Insertion
+// will return NULL if we attempt to add items with identical
+// identifiers. Otherwise returns NULL
 void	*ft_insert(void *ptr, t_hash *table)
 {
 	size_t	i;
@@ -74,6 +81,7 @@ void	*ft_insert(void *ptr, t_hash *table)
 	return (ptr);
 }
 
+// ft_get returns a pointer to the found table element, otherwise NULL
 void	*ft_get(void *ptr, t_hash *table)
 {
 	size_t	i;
@@ -84,6 +92,7 @@ void	*ft_get(void *ptr, t_hash *table)
 	return (ft_unique((t_list *)table->arr[i], ptr, 5));
 }
 
+// ft_ptable prints all elemets of a table to the stdout
 void	ft_ptable(t_hash *table)
 {
 	int		i;
