@@ -6,7 +6,7 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:25:30 by npimenof          #+#    #+#             */
-/*   Updated: 2020/09/28 14:59:22 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:21:42 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,34 @@ size_t	ft_hash(void *ptr, size_t size)
 	return (hash_value); 
 }
 
+void	ft_del(t_list **list, void *p, size_t s)
+{
+	t_list	*tmp;
+	t_list	*prev;
+
+	if (!(*list) | !p)
+		return ;
+	if (!(*list)->next)
+	{
+		free(*list);
+		*list = NULL;
+		return ;
+	}
+	prev = *list;
+	tmp = *list;
+	while ((tmp = tmp->next))
+	{
+		if (!(ft_memcmp(tmp->content, p, s)))
+		{
+			prev->next = tmp->next;
+			free(tmp);
+			tmp = NULL;
+			return ;
+		}
+		prev = tmp;
+	}
+}
+
 void	*ft_unique(t_list *l, void *ptr, size_t s)
 {
 	while (l)
@@ -67,29 +95,53 @@ void	*ft_unique(t_list *l, void *ptr, size_t s)
 // ft_insert inserts an element to the hash table. Insertion
 // will return NULL if we attempt to add items with identical
 // identifiers. Otherwise returns NULL
-void	*ft_insert(void *ptr, t_hash *table)
+void	*ft_insert(t_hash *table, void *ptr, size_t size)
 {
 	size_t	i;
 
 	if (!ptr || !table)
 		return (NULL);
-	i = table->hash(ptr, 7);
-	if (ft_unique((t_list *)table->arr[i], ptr, 7))
+	i = table->hash(ptr, size);
+	if (ft_unique((t_list *)table->arr[i], ptr, size))
 		return (NULL);
-	ft_lstadd_sorted((t_list **)&table->arr[i], ft_lstcontent(ptr));
+	ft_lstadd((t_list **)&table->arr[i], ft_lstcontent(ptr));
 	table->used++;
 	return (ptr);
 }
 
 // ft_get returns a pointer to the found table element, otherwise NULL
-void	*ft_get(void *ptr, t_hash *table)
+void	*ft_get(t_hash *table, void *ptr, size_t size)
 {
 	size_t	i;
 
 	if (!ptr || !table)
 		return (NULL);
-	i = table->hash(ptr, 5);
-	return (ft_unique((t_list *)table->arr[i], ptr, 5));
+	i = table->hash(ptr, size);
+	return (ft_unique((t_list *)table->arr[i], ptr, size));
+}
+
+void	*ft_update(t_hash *t, void *p, size_t s, void *(*f)(void *p))
+{
+	void	*item;
+	// size_t	i;
+
+	if (!(item = ft_get(t, p, s)))
+		return (NULL);
+	if (!(item = f(item)))
+		return (NULL);
+	ft_del((t_list **)&t->arr[t->hash(p, s)], p, s);
+	ft_insert(t, item, s);
+	return (item);
+}
+
+void	ft_delete(t_hash *t, void *p, size_t s, void (*del)(void *p))
+{
+	void	*item;
+
+	if (!(item = ft_get(t, p, s)))
+		return ;
+	ft_del((t_list **)&t->arr[t->hash(p, s)], p , s);
+	del(item);
 }
 
 // ft_ptable prints all elemets of a table to the stdout
