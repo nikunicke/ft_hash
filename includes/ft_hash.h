@@ -6,13 +6,13 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:17:59 by npimenof          #+#    #+#             */
-/*   Updated: 2020/09/30 18:22:22 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:17:40 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_HASH_H
 # define FT_HASH_H
-# define TABLE_SIZE 1024
+# define TABLE_SIZE 1024 * 10000
 # include "libft.h"
 
 // t_hash represents a hash table
@@ -37,9 +37,12 @@ size_t	ft_hash(void *ptr, size_t size);
 
 void	*ft_insert(t_hash *table, void *ptr, size_t size);
 void	*ft_update(t_hash *t, void *ptr, size_t size, void *(*f)(void *p));
-void	ft_delete(t_hash *t, void *p, size_t s, void (*del)(void *p));
 void	*ft_get(t_hash *table, void *ptr, size_t size);
+void	ft_delete(t_hash *t, void *p, size_t s, void (*del)(void *p));
 void	ft_ptable(t_hash *table);
+void	ft_map(t_hash *t, void (*f)());
+void	ft_converge(t_hash *t, void *p, void (*f)());
+void	*ft_unique(t_list *l, void *ptr, size_t s);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:25:30 by npimenof          #+#    #+#             */
-/*   Updated: 2020/09/30 18:21:42 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:17:47 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ size_t	ft_hash(void *ptr, size_t size)
 		if (*c)
 		{
 			hash_value += *c;
-			hash_value = (hash_value * *c) % TABLE_SIZE;
+			hash_value = (hash_value * *c) % (TABLE_SIZE);
 		}
 		size--;
 		c++;
@@ -105,6 +105,7 @@ void	*ft_insert(t_hash *table, void *ptr, size_t size)
 	if (ft_unique((t_list *)table->arr[i], ptr, size))
 		return (NULL);
 	ft_lstadd((t_list **)&table->arr[i], ft_lstcontent(ptr));
+	((t_list *)table->arr[i])->content_size = size;
 	table->used++;
 	return (ptr);
 }
@@ -147,7 +148,7 @@ void	ft_delete(t_hash *t, void *p, size_t s, void (*del)(void *p))
 // ft_ptable prints all elemets of a table to the stdout
 void	ft_ptable(t_hash *table)
 {
-	int		i;
+	size_t	i;
 	t_list	*tmp;
 
 	i = 0;
@@ -156,8 +157,46 @@ void	ft_ptable(t_hash *table)
 		tmp = table->arr[i];
 		while (tmp)
 		{
-			printf("index: %d  -- '%s'\n", i, tmp->content);
+			printf("index: %zu  -- '%s'\n", i, tmp->content);
 			tmp = tmp->next;
+		}
+		i++;
+	}
+}
+
+void	ft_map(t_hash *t, void (*f)())
+{
+	int		i;
+	t_list	*l;
+
+	i = 0;
+	while (i < TABLE_SIZE)
+	{
+		l = t->arr[i];
+		while (l)
+		{
+			f(l->content, l->content_size);
+			l = l->next;
+		}
+		i++;
+	}
+}
+
+void	ft_converge(t_hash *t, void *p, void (*f)())
+{
+	int		i;
+	t_list	*l;
+
+	if (!t || !p)
+		return ;
+	i = 0;
+	while (i < TABLE_SIZE)
+	{
+		l = t->arr[i];
+		while (l)
+		{
+			f(p, l->content, l->content_size);
+			l = l->next;
 		}
 		i++;
 	}
