@@ -6,13 +6,13 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:17:59 by npimenof          #+#    #+#             */
-/*   Updated: 2020/10/12 16:03:44 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/10/13 14:59:44 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_HASH_H
 # define FT_HASH_H
-# define TABLE_SIZE 1024 * 1000
+# define TABLE_SIZE 20011
 # include "libft.h"
 
 // t_hash represents a hash table
