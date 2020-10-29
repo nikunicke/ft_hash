@@ -6,7 +6,7 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:17:59 by npimenof          #+#    #+#             */
-/*   Updated: 2020/10/13 14:59:44 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:36:25 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ typedef struct	s_hash
 	size_t		used;
 	size_t		size;
 }				t_hash;
-
-
 
 t_hash	*init_hash_table(size_t type, size_t (*hash_func)());
 size_t	ft_hash(void *ptr, size_t size);
