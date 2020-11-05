@@ -2,9 +2,9 @@ NAME = libhashft.a
 
 FLAGS = -Wall -Werror -Wextra
 
-SRC = src/ft_hash.c
+SRC = src/ft_hash.c src/table.c
 
-OBJ = ft_hash.o
+OBJ = ft_hash.o table.o
 
 LIBFTOBJ = ft_strlen.o ft_bzero.o\
 			ft_memcpy.o ft_lstadd.o\
