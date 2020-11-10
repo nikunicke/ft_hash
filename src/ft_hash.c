@@ -6,13 +6,11 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:25:30 by npimenof          #+#    #+#             */
-/*   Updated: 2020/11/05 14:43:11 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/11/10 13:18:19 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_hash.h"
-#include <stdio.h>
 
 t_hash	*init_hash_table(size_t type, size_t (*hash_func)())
 {
