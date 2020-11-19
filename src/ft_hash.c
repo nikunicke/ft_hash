@@ -6,7 +6,7 @@
 /*   By: npimenof <npimenof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:25:30 by npimenof          #+#    #+#             */
-/*   Updated: 2020/11/10 13:18:19 by npimenof         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:18:04 by npimenof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ t_hash	*init_hash_table(size_t type, size_t (*hash_func)())
 {
 	t_hash	*table;
 
-	if (!(table = malloc(sizeof(t_hash))))
+	if (!(table = ft_memalloc(sizeof(t_hash))))
 		return (NULL);
-	if (!(table->arr = malloc(type * TABLE_SIZE)))
+	if (!(table->arr = ft_memalloc(type * TABLE_SIZE)))
 		return (NULL);
-	ft_bzero(table->arr, TABLE_SIZE);
 	table->hash = hash_func;
 	table->size = TABLE_SIZE;
 	table->used = 0;
